@@ -1,0 +1,17 @@
+[package]
+name = "pws_server"
+version = "0.1.0"
+edition = "2024"
+authors = ["Shua <CHA_shua@outlook.com>"]
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1.0.147"
+base64 = "0.22.1"
+blake2s_simd = "1.0.3"
+tokio = {version = "1.48.0"  ,features = ["full"] }
+pws_core = { path = "../pws_core" }
+async-trait = "0.1"
+axum = "0.8"
+redb = "3.1.0"
+reqwest = "0.12.28"

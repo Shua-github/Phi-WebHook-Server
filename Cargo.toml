@@ -1,0 +1,11 @@
+[workspace]
+members = [
+    "pws_core",
+    "pws_server",
+]
+resolver = "3"
+
+[profile.release]
+opt-level = 3
+strip = "debuginfo"
+lto = true

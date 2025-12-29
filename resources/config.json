@@ -1,0 +1,6 @@
+{
+    "log_level": "DEBUG",
+    "kv_storage_path": "./kv_storage",
+    "sign_key": "you-secret",
+    "file_url_template": "https://127.0.0.1/files/{file_obj_id}"
+}

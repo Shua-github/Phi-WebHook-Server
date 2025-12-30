@@ -930,9 +930,9 @@ checksum = "9b4f627cb1b25917193a259e49bdad08f671f8d9708acfd5fe0a8c1455d87220"
 
 [[package]]
 name = "phi_save_codec"
-version = "0.1.0"
+version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dd3ab1bcc0e68bf697f0318d3922bf7f7ee03f30a370c05212287623a36d5743"
+checksum = "c5d9126bf77cafab1cac00ec94b6527f94a4cef9ae11cdf3bdccef04205d6249"
 dependencies = [
  "bitvec",
  "serde",

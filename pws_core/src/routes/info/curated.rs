@@ -1,6 +1,9 @@
 use super::utils::{parse_save, unzip};
 use axum::Json;
-use serde_json::json;
+use phi_save_codec::game_progress::serde::SerializableMoney;
+use phi_save_codec::game_record::serde::SerializableGameRecord;
+use phi_save_codec::user::serde::SerializableUser;
+use serde::Serialize;
 use std::io::Cursor;
 use std::sync::Arc;
 
@@ -12,6 +15,15 @@ use axum::{
 
 use crate::types::LogLevel;
 use crate::types::{AppState, AppUtils, KVStorage, KVTable};
+
+#[derive(Serialize)]
+struct Curated {
+    nickname: String,
+    user: SerializableUser,
+    money: SerializableMoney,
+    device_name: String,
+    record: SerializableGameRecord,
+}
 
 pub async fn handler<U: AppUtils, KV: KVStorage>(
     State(state): State<Arc<AppState<U, KV>>>,
@@ -42,9 +54,12 @@ pub async fn handler<U: AppUtils, KV: KVStorage>(
         }
     };
 
-    Json(json!({
-        "nickname": nickname,
-        "save": save
-    }))
-    .into_response()
+    let curated = Curated {
+        nickname: nickname,
+        device_name: save.settings.device_name,
+        money: save.game_progress.money,
+        record: save.game_record,
+        user: save.user,
+    };
+    Json(curated).into_response()
 }

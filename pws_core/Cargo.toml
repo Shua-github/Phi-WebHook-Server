@@ -10,7 +10,7 @@ crate-type = ["cdylib" , "rlib"]
 [dependencies]
 async-trait = "0.1.89"
 axum = { version = "0.8", default-features = false, features = ["json"] }
-phi_save_codec = "0.1.0"
+phi_save_codec = "0.1.1"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1.0.147"
 bitvec = "1.0.1"

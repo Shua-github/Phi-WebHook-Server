@@ -29,8 +29,8 @@ pub async fn handle_save<U: AppUtils, KV: KVStorage>(
 
     let openid = &payload.user.openid;
     let save = state.kv.open_table("save").await;
+    let file_data = state.utils.get_file(&data.file_object_id);
     let user = state.kv.open_table("user").await;
-    let file_data = state.utils.get_file(&data.file_object_id).await;
-    save.put(openid, &file_data).await;
+    save.put(openid, &file_data.await).await;
     user.put(openid, &payload.user.nickname.as_bytes()).await;
 }

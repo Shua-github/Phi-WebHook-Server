@@ -1,16 +1,21 @@
 use async_trait::async_trait;
 use axum::response::IntoResponse;
 use base64::{Engine as _, engine::general_purpose::URL_SAFE};
-use blake2s_simd::{Params, State};
+use blake2::{
+    Blake2sMac,
+    digest::{Mac, consts::U16},
+};
 use pws_core::types::{AppUtils, LogLevel};
 use reqwest::{Client, StatusCode};
 
-fn sign(key: Vec<u8>, data: &[u8]) -> String {
-    let mut state: State = Params::new().hash_length(16).key(&key).to_state();
+fn sign(key: &[u8], data: &[u8]) -> String {
+    let mut mac =
+        Blake2sMac::<U16>::new_with_salt_and_personal(key, &[], &[]).expect("invalid length");
 
-    state.update(data);
-    let hash = state.finalize();
-    URL_SAFE.encode(hash.as_bytes())
+    mac.update(data);
+
+    let result = mac.finalize();
+    URL_SAFE.encode(result.into_bytes())
 }
 
 pub struct ServerUtils {
@@ -59,7 +64,7 @@ impl AppUtils for ServerUtils {
     }
 
     fn sign(&self, data: &[u8]) -> String {
-        sign(self.sign_key.clone(), data)
+        sign(&self.sign_key, data)
     }
 
     fn logger(&self, level: LogLevel, msg: &str) {

@@ -2,6 +2,7 @@
 members = [
     "pws_core",
     "pws_server",
+    "pws_worker"
 ]
 resolver = "3"
 

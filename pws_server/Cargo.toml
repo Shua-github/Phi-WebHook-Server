@@ -8,7 +8,7 @@ authors = ["Shua <CHA_shua@outlook.com>"]
 serde = { version = "1", features = ["derive"] }
 serde_json = "1.0.147"
 base64 = "0.22.1"
-blake2s_simd = "1.0.3"
+blake2 = "0.10.6"
 tokio = {version = "1.48.0"  ,features = ["full"] }
 pws_core = { path = "../pws_core" }
 async-trait = "0.1"

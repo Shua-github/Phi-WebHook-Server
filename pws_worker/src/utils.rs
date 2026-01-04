@@ -5,7 +5,7 @@ use std::{
 
 use async_trait::async_trait;
 use pws_core::types::{AppUtils, LogLevel};
-use worker::{Fetch, Url};
+use worker::{Fetch, Url, wasm_bindgen::JsValue, web_sys::console};
 
 use crate::sign::sign;
 
@@ -65,7 +65,11 @@ impl AppUtils for WorkerUtils {
 
     fn logger(&self, level: LogLevel, msg: &str) {
         if self.log_level as u8 <= level as u8 {
-            println!("[{}] {}", Self::get_level_str(level), msg);
+            console::log_1(&JsValue::from_str(&format!(
+                "[{}] {}",
+                Self::get_level_str(level),
+                msg
+            )));
         }
     }
 }
